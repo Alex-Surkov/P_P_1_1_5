@@ -13,14 +13,12 @@ public class Util {
 
     public static Connection getConnection() throws IOException {
         Properties properties = new Properties();
-        String dbUsername;
-        String dbPassword;
-        String dbURL;
+
+        String dbURL = "jdbc:mysql://127.0.0.1:3306/schema_name";
+        String dbUsername = "Sur";
+        String dbPassword = "kjjLVUdf34F52346*(% ";
         try (FileInputStream fileInputStream = new FileInputStream("src/main/resources/config.properties")) {
             properties.load(fileInputStream);
-            dbURL = properties.getProperty("db.host");
-            dbUsername = properties.getProperty("db.username");
-            dbPassword = properties.getProperty("db.password");
         }
         Connection connection = null;
         try {
