@@ -10,7 +10,9 @@ public class Main {
         userServiceImpl.saveUser("Басилий", "Иванов", (byte) 3);
         userServiceImpl.saveUser("Сасилий", "Иванов", (byte) 2);
         System.out.println(userServiceImpl.getAllUsers());
-        userServiceImpl.cleanUsersTable();
-        userServiceImpl.dropUsersTable();
+        userServiceImpl.removeUserById(1L);
+        userServiceImpl.removeUserById(1L);
+
+
     }
 }

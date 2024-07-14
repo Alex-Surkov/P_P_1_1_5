@@ -18,6 +18,8 @@ public class UserDaoHibernateImpl implements UserDao {
         } catch (HibernateException e) {
             session.getTransaction().rollback();
             throw e;
+        } finally { // Имеет ли смысл так перестраховываться от connection leak?
+            session.close();
         }
     }
 
@@ -32,6 +34,8 @@ public class UserDaoHibernateImpl implements UserDao {
         } catch (HibernateException e) {
             session.getTransaction().rollback();
             throw e;
+        } finally { // Имеет ли смысл так перестраховываться от connection leak?
+            session.close();
         }
     }
 
@@ -47,6 +51,8 @@ public class UserDaoHibernateImpl implements UserDao {
         } catch (HibernateException e) {
             session.getTransaction().rollback();
             throw e;
+        } finally { // Имеет ли смысл так перестраховываться от connection leak?
+            session.close();
         }
     }
 
@@ -57,12 +63,14 @@ public class UserDaoHibernateImpl implements UserDao {
             session.beginTransaction();
             User user = session.get(User.class, id);
             if (user!= null) {
-                session.delete(user);
+                session.remove(user);
             }
             session.getTransaction().commit();
         } catch (HibernateException e) {
             session.getTransaction().rollback();
             throw e;
+        } finally { // Имеет ли смысл так перестраховываться от connection leak?
+            session.close();
         }
     }
 
@@ -77,6 +85,8 @@ public class UserDaoHibernateImpl implements UserDao {
         } catch (HibernateException e) {
             session.getTransaction().rollback();
             throw e;
+        } finally { // Имеет ли смысл так перестраховываться от connection leak?
+            session.close();
         }
     }
 
@@ -90,6 +100,8 @@ public class UserDaoHibernateImpl implements UserDao {
         } catch (HibernateException e) {
             session.getTransaction().rollback();
             throw e;
+        } finally { // Имеет ли смысл так перестраховываться от connection leak?
+            session.close();
         }
     }
 }
