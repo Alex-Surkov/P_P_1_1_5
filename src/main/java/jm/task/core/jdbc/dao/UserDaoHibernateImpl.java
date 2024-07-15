@@ -10,36 +10,42 @@ import java.util.List;
 public class UserDaoHibernateImpl implements UserDao {
 
     @Override
-    public void createUsersTable() throws HibernateException {
+    public void createUsersTable() {
 
         try (Session session = Util.getSession()) {
             session.beginTransaction();
             session.createNativeQuery("CREATE TABLE IF NOT EXISTS users (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(50), lastName VARCHAR(50), age TINYINT)").executeUpdate();
             session.getTransaction().commit();
+        } catch (HibernateException e) {
+            throw new RuntimeException(e.getMessage(), e.getCause());
         }
     }
 
     @Override
-    public void dropUsersTable() throws HibernateException {
+    public void dropUsersTable() {
         try (Session session = Util.getSession()) {
             session.beginTransaction();
             session.createNativeQuery("DROP TABLE IF EXISTS users").executeUpdate();
             session.getTransaction().commit();
+        } catch (HibernateException e) {
+            throw new RuntimeException(e.getMessage(), e.getCause());
         }
     }
 
     @Override
-    public void saveUser(String name, String lastName, byte age) throws HibernateException {
+    public void saveUser(String name, String lastName, byte age) {
         try (Session session = Util.getSession()) {
             User user = new User(name, lastName, age);
             session.beginTransaction();
             session.persist(user);
             session.getTransaction().commit();
+        } catch (HibernateException e) {
+            throw new RuntimeException(e.getMessage(), e.getCause());
         }
     }
 
     @Override
-    public void removeUserById(long id) throws HibernateException {
+    public void removeUserById(long id) {
         try (Session session = Util.getSession()) {
             session.beginTransaction();
             User user = session.get(User.class, id);
@@ -47,25 +53,31 @@ public class UserDaoHibernateImpl implements UserDao {
                 session.remove(user);
             }
             session.getTransaction().commit();
+        } catch (HibernateException e) {
+            throw new RuntimeException(e.getMessage(), e.getCause());
         }
     }
 
     @Override
-    public List<User> getAllUsers() throws HibernateException {
+    public List<User> getAllUsers() {
         try (Session session = Util.getSession()) {
             session.beginTransaction();
             List<User> users = session.createQuery("FROM User", User.class).getResultList();
             session.getTransaction().commit();
             return users;
+        } catch (HibernateException e) {
+            throw new RuntimeException(e.getMessage(), e.getCause());
         }
     }
 
     @Override
-    public void cleanUsersTable() throws HibernateException {
+    public void cleanUsersTable() {
         try (Session session = Util.getSession()) {
             session.beginTransaction();
             session.createQuery("DELETE FROM User").executeUpdate();
             session.getTransaction().commit();
+        } catch (HibernateException e) {
+            throw new RuntimeException(e.getMessage(), e.getCause());
         }
     }
 }
